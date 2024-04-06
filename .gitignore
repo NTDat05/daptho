@@ -1,0 +1,9 @@
+
+*.vsidx
+/.vs
+*.sln
+*.vcxproj
+*.filters
+*.user
+/SDL
+x64/Debug/SDL.pdb
