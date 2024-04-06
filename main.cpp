@@ -87,7 +87,7 @@ void render() {
 			SDL_Rect srcRect = { it->currentFrame * it->frameWidth,0, it->frameWidth, it->frameHeight };
 			SDL_Rect destRect = { it->x, it->y, it->frameWidth, it->frameHeight };
 			SDL_RenderCopy(renderer, rabbitTexture, &srcRect, &destRect);
-			if (SDL_GetTicks() - it->hitStartTime >= it->frameDuration * 6) {
+			if (/*SDL_GetTicks() - it->hitStartTime >= it->frameDuration * 6*/it->currentFrame==6) {
 				
 
 				it= rabbits.erase(rabbits.begin() + std::distance(rabbits.begin(), it));
@@ -140,6 +140,7 @@ int main(int argc, char* args[]) {
 				for (auto& rabbit : rabbits) {
 					if (SDL_PointInRect(&mousePos,&rabbit.rect)&&rabbit.state==Rabbit::Normal) {
 						rabbit.state = Rabbit::Hit;
+						rabbit.currentFrame = 0;
 						rabbit.hitStartTime = SDL_GetTicks();
 						break;
 					}

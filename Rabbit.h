@@ -19,4 +19,5 @@ public:
     Rabbit(SDL_Rect _rect, int _frameDuration);
        
     void animate();
+    void toNextFrame(Uint32 currentTime);
 };
