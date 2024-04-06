@@ -15,8 +15,9 @@ void close() {
 void spawnRabbit() {
 	int x, y;
 	SDL_Rect rect = {};
-
+	int time = 0;
 	do {
+		
 		x = rand() % (SCREEN_WIDTH - USAGI_SIZE);
 		y = rand() % (SCREEN_HEIGHT - USAGI_SIZE);
 		bool allow = true;
@@ -87,8 +88,9 @@ void render() {
 			SDL_Rect destRect = { it->x, it->y, it->frameWidth, it->frameHeight };
 			SDL_RenderCopy(renderer, rabbitTexture, &srcRect, &destRect);
 			if (SDL_GetTicks() - it->hitStartTime >= it->frameDuration * 6) {
-				spawnRabbit();
-				it = rabbits.erase(rabbits.begin() + std::distance(rabbits.begin(), it));
+				
+
+				it= rabbits.erase(rabbits.begin() + std::distance(rabbits.begin(), it));
 			}
 			else {
 				++it;
@@ -120,10 +122,8 @@ int main(int argc, char* args[]) {
 	SDL_Event e;
 	spawnRabbit();
 	spawnRabbit();
-	spawnRabbit();
-	spawnRabbit();
-	spawnRabbit();
-
+	Uint32 preTime = SDL_GetTicks();
+	Uint32 curTime;
 	while (!quit) {
 		while (SDL_PollEvent(&e) != 0) {
 			if (e.type == SDL_QUIT) {
@@ -148,7 +148,12 @@ int main(int argc, char* args[]) {
 			else if (e.type == SDL_MOUSEBUTTONUP) hit = false;
 
 		}
-
+		curTime = SDL_GetTicks();
+		
+		if (curTime-preTime>=1000) {
+			spawnRabbit();
+			preTime = curTime;
+		}
 		for (auto& rabbit : rabbits) {
 			rabbit.animate();
 		}
