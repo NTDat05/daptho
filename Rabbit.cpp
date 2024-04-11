@@ -14,8 +14,29 @@ void Rabbit::animate() {
 	Uint32 currentTime = SDL_GetTicks();
 	Uint32 elapsedTime = currentTime - lastFrameTime;
 
-	if (elapsedTime >= frameDuration) {
-		lastFrameTime = currentTime;
-		currentFrame = (currentFrame + 1) % 10;
+	if (state == Normal) {
+		if (currentFrame == 3 || currentFrame == 4) {
+			if (elapsedTime >= frameDuration * 15) {
+				toNextFrame(currentTime);
+			}
+		}
+		else if (elapsedTime >= frameDuration) {
+			toNextFrame(currentTime);
+		}
 	}
+	else {
+		
+		if (currentFrame == 0 || currentFrame == 1) {
+			if (elapsedTime >= frameDuration * 10) {
+				toNextFrame(currentTime);
+			}
+		}
+		else if (elapsedTime >= frameDuration) {
+			toNextFrame(currentTime);
+		}
+	}
+}
+void Rabbit::toNextFrame(Uint32 currentTime) {
+	lastFrameTime = currentTime;
+	currentFrame = (currentFrame + 1) % 10;
 }
