@@ -40,6 +40,38 @@ void spawnRabbit() {
 	Rabbit newRabbit(rect,50); // default frame duration
 	rabbits.push_back(newRabbit);
 }
+void render() {
+	SDL_RenderClear(renderer);
+	SDL_RenderCopy(renderer, backGroundTexture, NULL, NULL);
+	for (auto it = rabbits.begin(); it != rabbits.end(); ) {
+		if (it->state == Rabbit::Normal) {
+			SDL_Rect srcRect = { it->currentFrame * it->frameWidth, it->frameHeight, it->frameWidth, it->frameHeight };
+			SDL_Rect destRect = { it->x, it->y, it->frameWidth, it->frameHeight };
+			SDL_RenderCopy(renderer, rabbitTexture, &srcRect, &destRect);
+			++it;
+		}
+		else if (it->state == Rabbit::Hit) {
+			SDL_Rect srcRect = { it->currentFrame * it->frameWidth,0, it->frameWidth, it->frameHeight };
+			SDL_Rect destRect = { it->x, it->y, it->frameWidth, it->frameHeight };
+			SDL_RenderCopy(renderer, rabbitTexture, &srcRect, &destRect);
+			if (/*SDL_GetTicks() - it->hitStartTime >= it->frameDuration * 6*/it->currentFrame == 6) {
+
+
+				it = rabbits.erase(rabbits.begin() + std::distance(rabbits.begin(), it));
+			}
+			else {
+				++it;
+			}
+		}
+	}
+
+	SDL_Rect carrotRect = { mouseX - CARROT_OFFSET, mouseY - CARROT_HEIGHT / 2, CARROT_WIDTH, CARROT_HEIGHT };
+	SDL_Rect crosshair = { mouseX - 20, mouseY - 20, 40, 40 };
+	SDL_RenderCopyEx(renderer, carrotTexture, NULL, &carrotRect, hit ? 0 : 45, NULL, SDL_FLIP_NONE);
+	SDL_RenderCopy(renderer, crosshairTexture, NULL, &crosshair);
+
+	SDL_RenderPresent(renderer);
+}
 void showMenu() {
 	bool inMenu = true;
 	SDL_Event e;
@@ -73,51 +105,7 @@ void showMenu() {
 	}
 }
 
-void render() {
-	SDL_RenderClear(renderer);
-	SDL_RenderCopy(renderer,backGroundTexture,NULL,NULL);
-	for (auto it = rabbits.begin(); it != rabbits.end(); ) {
-		if (it->state == Rabbit::Normal) {
-			SDL_Rect srcRect = { it->currentFrame * it->frameWidth, it->frameHeight, it->frameWidth, it->frameHeight };
-			SDL_Rect destRect = { it->x, it->y, it->frameWidth, it->frameHeight };
-			SDL_RenderCopy(renderer, rabbitTexture, &srcRect, &destRect);
-			++it;
-		}
-		else if (it->state == Rabbit::Hit) {
-			SDL_Rect srcRect = { it->currentFrame * it->frameWidth,0, it->frameWidth, it->frameHeight };
-			SDL_Rect destRect = { it->x, it->y, it->frameWidth, it->frameHeight };
-			SDL_RenderCopy(renderer, rabbitTexture, &srcRect, &destRect);
-			if (/*SDL_GetTicks() - it->hitStartTime >= it->frameDuration * 6*/it->currentFrame==6) {
-				
-
-				it= rabbits.erase(rabbits.begin() + std::distance(rabbits.begin(), it));
-			}
-			else {
-				++it;
-			}
-		}
-	}
-
-	SDL_Rect carrotRect = { mouseX-CARROT_OFFSET, mouseY- CARROT_HEIGHT/2, CARROT_WIDTH, CARROT_HEIGHT };
-	SDL_Rect crosshair = { mouseX - 20, mouseY - 20, 40, 40 };
-	SDL_RenderCopyEx(renderer, carrotTexture, NULL, &carrotRect, hit?0:45,NULL, SDL_FLIP_NONE);
-	SDL_RenderCopy(renderer, crosshairTexture, NULL, &crosshair);
-
-	SDL_RenderPresent(renderer);
-}
-int main(int argc, char* args[]) {
-	if (!init()) {
-		std::cerr << "Failed to initialize!" << std::endl;
-		return -1;
-	}
-
-	if (!loadMedia()) {
-		std::cerr << "Failed to load media!" << std::endl;
-		return -1;
-	}
-	showMenu();
-	srand(time(NULL));
-
+void play() {
 	bool quit = false;
 	SDL_Event e;
 	spawnRabbit();
@@ -138,7 +126,7 @@ int main(int argc, char* args[]) {
 				SDL_GetMouseState(&mousePos.x, &mousePos.y);
 				hit = true;
 				for (auto& rabbit : rabbits) {
-					if (SDL_PointInRect(&mousePos,&rabbit.rect)&&rabbit.state==Rabbit::Normal) {
+					if (SDL_PointInRect(&mousePos, &rabbit.rect) && rabbit.state == Rabbit::Normal) {
 						rabbit.state = Rabbit::Hit;
 						rabbit.currentFrame = 0;
 						rabbit.hitStartTime = SDL_GetTicks();
@@ -150,8 +138,8 @@ int main(int argc, char* args[]) {
 
 		}
 		curTime = SDL_GetTicks();
-		
-		if (curTime-preTime>=1000) {
+
+		if (curTime - preTime >= 1000) {
 			spawnRabbit();
 			preTime = curTime;
 		}
@@ -161,6 +149,23 @@ int main(int argc, char* args[]) {
 
 		render();
 	}
+}
+
+int main(int argc, char* args[]) {
+	if (!init()) {
+		std::cerr << "Failed to initialize!" << std::endl;
+		return -1;
+	}
+
+	if (!loadMedia()) {
+		std::cerr << "Failed to load media!" << std::endl;
+		return -1;
+	}
+	showMenu();
+	srand(time(NULL));
+	
+	play();
+	
 
 	close();
 	return 0;
