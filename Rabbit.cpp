@@ -16,11 +16,11 @@ void Rabbit::animate() {
 
 	if (state == Normal) {
 		if (currentFrame == 3 || currentFrame == 4) {
-			if (elapsedTime >= frameDuration * 15) {
+			if (elapsedTime >= duration * 15) {
 				toNextFrame(currentTime);
 			}
 		}
-		else if (elapsedTime >= frameDuration) {
+		else if (elapsedTime >= duration) {
 			toNextFrame(currentTime);
 		}
 	}

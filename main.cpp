@@ -3,6 +3,7 @@
 int mouseX, mouseY;
 std::vector<Rabbit> rabbits;
 bool hit = false;
+
 void close() {
 	SDL_DestroyTexture(rabbitTexture);
 	SDL_DestroyTexture(carrotTexture);
@@ -37,7 +38,7 @@ void spawnRabbit() {
 			break;
 		}
 	} while (true);
-	Rabbit newRabbit(rect,50); // default frame duration
+	Rabbit newRabbit(rect,70); // default frame duration
 	rabbits.push_back(newRabbit);
 }
 void render() {
@@ -48,7 +49,8 @@ void render() {
 			SDL_Rect srcRect = { it->currentFrame * it->frameWidth, it->frameHeight, it->frameWidth, it->frameHeight };
 			SDL_Rect destRect = { it->x, it->y, it->frameWidth, it->frameHeight };
 			SDL_RenderCopy(renderer, rabbitTexture, &srcRect, &destRect);
-			++it;
+			//if(SDL_GetTicks() - it->hitStartTime >= it->frameDuration * 12) it = rabbits.erase(rabbits.begin() + std::distance(rabbits.begin(), it));
+			it++;
 		}
 		else if (it->state == Rabbit::Hit) {
 			SDL_Rect srcRect = { it->currentFrame * it->frameWidth,0, it->frameWidth, it->frameHeight };
@@ -60,7 +62,7 @@ void render() {
 				it = rabbits.erase(rabbits.begin() + std::distance(rabbits.begin(), it));
 			}
 			else {
-				++it;
+				it++;
 			}
 		}
 	}
@@ -77,7 +79,7 @@ void showMenu() {
 	SDL_Event e;
 
 	while (inMenu) {
-		while (SDL_PollEvent(&e) != 0) {
+		while (SDL_PollEvent(&e)) {
 			if (e.type == SDL_QUIT) {
 				inMenu = false;
 			}
@@ -104,7 +106,6 @@ void showMenu() {
 		SDL_RenderPresent(renderer);
 	}
 }
-
 void play() {
 	bool quit = false;
 	SDL_Event e;
@@ -112,8 +113,9 @@ void play() {
 	spawnRabbit();
 	Uint32 preTime = SDL_GetTicks();
 	Uint32 curTime;
-	while (!quit) {
-		while (SDL_PollEvent(&e) != 0) {
+	
+	while (!quit&&rabbits.size()<= MAX_USAGI-5) {
+		while (SDL_PollEvent(&e)) {
 			if (e.type == SDL_QUIT) {
 				quit = true;
 			}
@@ -142,6 +144,7 @@ void play() {
 		if (curTime - preTime >= 1000) {
 			spawnRabbit();
 			preTime = curTime;
+			duration -= 3;
 		}
 		for (auto& rabbit : rabbits) {
 			rabbit.animate();
@@ -150,8 +153,53 @@ void play() {
 		render();
 	}
 }
+bool gameOver() {
+	//reset game stats
+	rabbits.clear();
+	duration = 70;
 
+	bool replay = false;
+	bool inGameOver = true;
+	SDL_Event e;
+	while (inGameOver) {
+		while (SDL_PollEvent(&e) ) {
+			if (e.type == SDL_QUIT) {
+				inGameOver = false;
+			}
+			else if (e.type == SDL_KEYDOWN) {
+				if (e.key.keysym.sym == SDLK_r) {
+					replay = true;
+					return replay;
+				}
+				if (e.key.keysym.sym == SDLK_ESCAPE) {
+					replay = false;
+					return replay;
+				}
+				
+			}
+		}
+
+		SDL_RenderClear(renderer);
+		SDL_Color textColor = { 255, 0, 0 };
+		SDL_Surface* textSurface = TTF_RenderText_Solid(font, "Game Over", textColor);
+		SDL_Texture* textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
+
+		SDL_Rect textRect;
+		textRect.x = (SCREEN_WIDTH - textSurface->w) / 2;
+		textRect.y = (SCREEN_HEIGHT - textSurface->h) / 2;
+		textRect.w = textSurface->w;
+		textRect.h = textSurface->h;
+
+		SDL_RenderCopy(renderer, textTexture, NULL, &textRect);
+
+		SDL_RenderPresent(renderer);
+
+	}
+
+	return replay;
+}
 int main(int argc, char* args[]) {
+	
 	if (!init()) {
 		std::cerr << "Failed to initialize!" << std::endl;
 		return -1;
@@ -163,10 +211,9 @@ int main(int argc, char* args[]) {
 	}
 	showMenu();
 	srand(time(NULL));
-	
-	play();
-	
-
+	do {
+		play();
+	} while (gameOver());
 	close();
 	return 0;
 }

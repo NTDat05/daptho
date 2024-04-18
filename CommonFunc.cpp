@@ -5,6 +5,8 @@ SDL_Window* window = NULL;
  SDL_Texture* carrotTexture = NULL;
  SDL_Texture* backGroundTexture = NULL;
  SDL_Texture* crosshairTexture = NULL;
+ TTF_Font* font=NULL;
+ float duration =70;
 bool loadMedia() {
     SDL_Surface* rabbitSurface = IMG_Load("rabbit_spritesheet.png");
     if (rabbitSurface == nullptr) {
@@ -55,6 +57,13 @@ bool loadMedia() {
         std::cerr << "Unable to create texture from image! SDL_Error: " << SDL_GetError() << std::endl;
         return false;
     }
+
+    font= TTF_OpenFont("BLOBBER.ttf", 28);
+    if (font == NULL)
+    {
+        std::cerr << "Failed to load lazy font! SDL_ttf Error: " << TTF_GetError() << std::endl;
+        return  false;
+    }
     return true;
 }
 bool init() {
@@ -80,7 +89,11 @@ bool init() {
         std::cerr << "SDL_image could not initialize! SDL_image Error: " << IMG_GetError() << std::endl;
         return false;
     }
-
+    if (TTF_Init() == -1)
+    {
+        std::cerr << "SDL_ttf could not initialize! SDL_ttf Error: " << TTF_GetError() << std::endl;
+        return  false;
+    }
     return true;
 }
 

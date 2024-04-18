@@ -17,6 +17,9 @@ extern SDL_Texture* rabbitTexture ;
 extern SDL_Texture* backGroundTexture;
 extern SDL_Texture* carrotTexture;
 extern SDL_Texture* crosshairTexture;
+extern TTF_Font* font;
+const int MAX_USAGI=19;
+extern float duration;
 // Screen
 const int SCREEN_WIDTH = 1280;
 const int SCREEN_HEIGHT = 720;
