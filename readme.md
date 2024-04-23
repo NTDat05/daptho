@@ -11,8 +11,29 @@
 - font : [1001fonts.com](https://www.1001fonts.com/)
 # Giới Thiệu Game
 
-- Bắt đầu game
+# Bắt đầu game
 - Menu : có hai lựa chọn play hoặc quit
+<div style="text-align: center;">
+
+![menu](preview/menu.png)
+
+</div>
+
 - Rule : 
+<div style="text-align: center;">
+
+![menu](preview/rule.png)
+
+</div>
 - Chơi : 
+<div style="text-align: center;">
+
+![menu](preview/play.png)
+
+</div>
 - kết thúc : có âm thanh phá kỉ lục và lựa chọn chơi lại
+<div style="text-align: center;">
+
+![menu](preview/gameOver.png)
+
+</div>
