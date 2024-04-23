@@ -9,3 +9,7 @@
 # Giới Thiệu Game
 
 - Bắt đầu game
+- Menu : có hai lựa chọn play hoặc quit
+- Rule : 
+- Chơi : 
+- kết thúc : có âm thanh phá kỉ lục và lựa chọn chơi lại
