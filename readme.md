@@ -6,11 +6,16 @@
 
 
 # Nguồn 
+Các hình ảnh trong game tự thiết kế hoặc tìm ngẫu nhiên trên google ngoại trừ :
 - spriesheets thỏ : [vectorstock.com](https://www.vectorstock.com/)
 - âm thanh :[myinstant.com]( https://www.myinstants.com/)
 - font : [1001fonts.com](https://www.1001fonts.com/)
 # Giới Thiệu Game
-
+ Lấy nguồn cảm hứng từ game đập chuột tuổi thơ
+ Điểm khác biệt :
+ - Thỏ sẽ spawn random trên màn hình thay vì cố định như bình thường
+ - Tốc độ spawn và hoạt ảnh thỏ sẽ nhanh hơn theo thời gian
+ - Đa dạng màu của thỏ sẽ khiến người chơi khó phân biệt để tránh thay vì bom ( bom dễ phân biệt so với thỏ)
 # Bắt đầu game
 - Menu : có hai lựa chọn play hoặc quit
 <div style="text-align: center;">
@@ -22,18 +27,18 @@
 - Rule : 
 <div style="text-align: center;">
 
-![menu](preview/rule.png)
+![rule](preview/rule.png)
 
 </div>
 - Chơi : 
 <div style="text-align: center;">
 
-![menu](preview/play.png)
+![play](preview/play.png)
 
 </div>
 - kết thúc : có âm thanh phá kỉ lục và lựa chọn chơi lại
 <div style="text-align: center;">
 
-![menu](preview/gameOver.png)
+![gameover](preview/gameOver.png)
 
 </div>
