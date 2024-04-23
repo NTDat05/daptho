@@ -1,7 +1,7 @@
 
 *.vsidx
 /.vs
-*.sln
+
 *.vcxproj
 *.filters
 *.user
