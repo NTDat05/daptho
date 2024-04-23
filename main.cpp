@@ -218,7 +218,7 @@ void play() {
 		}
 		curTime = SDL_GetTicks();
 
-		if (curTime - preTime >= 850 * (duration / 70)) {
+		if (curTime - preTime >= 500 * (duration / 70)) {
 			spawnRabbit();
 			preTime = curTime;
 			duration = std::max(45.0f, float(duration - 1.0f));
