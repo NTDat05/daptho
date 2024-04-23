@@ -1,5 +1,20 @@
 #include "Rabbit.h"
-Rabbit::Rabbit(SDL_Rect _rect, int _frameDuration) : rect(_rect), frameDuration(_frameDuration) {
+Rabbit::Rabbit(SDL_Rect _rect, int _frameDuration,int _type) : rect(_rect), frameDuration(_frameDuration) {
+	switch (_type) {
+	case 0:
+		type = Yellow;
+		break;
+	case 1:
+		type = Red;
+		break;
+	case 2:
+		type = Blue;
+		break;
+	default:
+		type = Yellow;
+		break;
+
+	}
 	currentFrame = 0;
 	lastFrameTime = SDL_GetTicks();
 	state = Normal;
@@ -16,7 +31,7 @@ void Rabbit::animate() {
 
 	if (state == Normal) {
 		if (currentFrame == 3 || currentFrame == 4) {
-			if (elapsedTime >= duration * 15) {
+			if (elapsedTime >= duration * 10) {
 				toNextFrame(currentTime);
 			}
 		}
@@ -26,8 +41,8 @@ void Rabbit::animate() {
 	}
 	else {
 		
-		if (currentFrame == 0 || currentFrame == 1) {
-			if (elapsedTime >= frameDuration * 10) {
+		if (currentFrame == 2 || currentFrame == 1) {
+			if (elapsedTime >= frameDuration * 5) {
 				toNextFrame(currentTime);
 			}
 		}
