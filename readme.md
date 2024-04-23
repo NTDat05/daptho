@@ -1,11 +1,11 @@
 # Whack a usagi
-- link game :
+- link preview game : [youtube]()
 # Cài đặt
-- bản chạy được luôn : tải daptho.rar và giải nén từ link https://github.com/NTDat05/daptho/releases/tag/release
+- bản chạy được luôn : tải daptho.rar và giải nén từ link [release](https://github.com/NTDat05/daptho/releases/tag/release)
 # Nguồn 
-- spriesheets thỏ : https://www.vectorstock.com/
-- âm thanh : https://www.myinstants.com/
-- font : https://www.1001fonts.com/
+- spriesheets thỏ : [vectorstock.com](https://www.vectorstock.com/)
+- âm thanh :[myinstant.com]( https://www.myinstants.com/)
+- font : [1001fonts.com](https://www.1001fonts.com/)
 # Giới Thiệu Game
 
 - Bắt đầu game
