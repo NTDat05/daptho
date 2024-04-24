@@ -42,3 +42,19 @@ Các hình ảnh trong game tự thiết kế hoặc tìm ngẫu nhiên trên go
 ![gameover](preview/gameOver.png)
 
 </div>
+# Source code
+- folder font: chứa font
+- folder imgs: chứa hình ảnh, background, spritesheet,...
+- folder sfx: hiệu ứng và âm thanh game
+main.cpp: chứa hàm main 
+ - hàm showMenu(): hiển thị menu gồm tên game và hai nút play, quit
+ - hàm showRule(): hiển thị luật chơi, nhấn esc để bắt đầu chơi 
+ - hàm play (): chơi game, xử lý logic game, hiển thị điểm số, thời gian,...
+CommonFunc.cpp: khai báo thư viện và các hằng
+ - định nghĩa hàm init để khởi tạo app
+ - định nghĩa hàm loadMedia để tải dữ liệu
+ - định nghĩa các hàm liên quan như kiểm tra va chạm
+ - định nghĩa hàm close để xử lí hậu kì thoát chương trình
+Rabbit.cpp: chứa class Rabbit 
+- animate() : xử lí cho thỏ hiện lên lâu hơn chút 
+- 
