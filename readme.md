@@ -30,19 +30,23 @@ Các hình ảnh trong game tự thiết kế hoặc tìm ngẫu nhiên trên go
 ![rule](preview/rule.png)
 
 </div>
+
+
 - Chơi : 
 <div style="text-align: center;">
 
 ![play](preview/play.png)
 
 </div>
+
 - kết thúc : có âm thanh phá kỉ lục và lựa chọn chơi lại
 <div style="text-align: center;">
 
 ![gameover](preview/gameOver.png)
 
 </div>
-</br>
+
+
 # Source code
 - folder font: chứa font
 - folder imgs: chứa hình ảnh, background, spritesheet,...
