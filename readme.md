@@ -1,5 +1,5 @@
 # Whack a usagi
-- link preview game : ![youtube](https://youtu.be/-1Npw2A5UbA?si=GNvPXeWHmDPLzrkK)
+- link preview game : [youtube](https://youtu.be/-1Npw2A5UbA?si=GNvPXeWHmDPLzrkK)
 # Cài đặt
 - bản chạy được luôn : tải daptho.rar và giải nén từ [release](https://github.com/NTDat05/daptho/releases/tag/release)
 - bản chạy trên IDE hoặc textEditor : clone repo hoặc Code -> download zip </br> Nếu dùng Visual Studio thì có thể vào file sln và cài đặt SDL2 rồi Ctrl + F5 để chạy
